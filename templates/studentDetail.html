@@ -1,0 +1,12 @@
+{% extends 'base1.html' %}
+{% block body %}
+<center>
+  <h2>Section ID</h2>
+{%for i in Student%}
+  <p>i.section_id</p>
+  <p>i.student_name</p>
+  <p>i.student_id</p>
+  <p>i.student_mail</p>
+{%endfor%}
+</center>
+{%endblock body%}

@@ -1,0 +1,60 @@
+{% extends 'base1.html' %}
+{% block body %}
+<center>
+<div class="container">
+
+  <table >
+    <thead >
+      <tr>
+        <th scope="col">SECTION ID</th>
+        <th scope="col"></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {%for i in sec%}
+      <tr>
+        <td>{{i.section_id}}</td>
+        <td><a href="{% url 'delete_section' i.id  %}"><button class="button btn btn-danger " type="button" name="button">Remove</button></a></td>
+        <td><a href="{% url 'student_dashboard' i.id  %}"><button class="button btn btn-primary" type="button" name="button">View Students</button></a></td>
+      </tr>
+      {%endfor%}
+    </tbody>
+  </table>
+</div>
+</center>
+<!--  <table class="table">
+    <thead class="thead-dark">
+      <th>Section ID</th>
+      <th>Faculty</th>
+      <th></th>
+    </thead>
+    {%for i in sec%}
+    <tr>
+      <td>{{i.section_id}}</td>
+      <td>{{i.facultyid}}</td>
+      <td><a href="{% url 'delete_section' i.id %}"><button class="button btn btn-danger " type="button" name="button">Remove</button></a></td>
+    </tr>
+    {%endfor%}
+  </table>
+  </div>-->
+  {% block style %}
+  <style>
+    th{
+      font-family:Comic Sans MS;
+      border-bottom:1px solid black;
+      padding:25px;
+      font-size:20px;
+      background:black;
+      color:blue;
+      margin-bottom:2px;
+    }
+    td{
+        padding:20px;
+        font-size:18px;
+        background:gray;
+        color:black;
+    }
+  </style>
+  {% endblock style %}
+{%endblock body%}

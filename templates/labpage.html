@@ -1,0 +1,43 @@
+{% extends 'base1.html' %}
+{% block body %}
+<center>
+  <table>
+    <thead>
+      <th>LAB</th>
+      <th>SECTION ID</th>
+      <th>START TIME</th>
+      <th>END TIME</th>
+      <th></th>
+    </thead>
+    {% for i in book %}
+    <tr>
+      <td>{{i.lab_id}}</td>
+      <td>{{i.section_id}}</td>
+      <td>{{i.startDate}}</td>
+      <td>{{i.lastDate}}</td>
+      <td><a href="{% url 'cancel_lab' i.id %}"><button class="button btn btn-danger " type="button" name="button">Cancel Lab</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  </center>
+{% block style %}
+  <style>
+    th{
+      font-family:Comic Sans MS;
+      border-bottom:1px solid black;
+      padding:25px;
+      font-size:20px;
+      background:black;
+      color:blue;
+      margin-bottom:2px;
+    }
+    td{
+        padding:20px;
+        font-size:18px;
+        background:gray;
+        color:black;
+    }
+  </style>
+
+  {% endblock style %}
+{% endblock body %}

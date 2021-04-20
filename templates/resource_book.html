@@ -1,0 +1,41 @@
+{%extends 'base1.html'%}
+
+{% block body%}
+<center>
+<form action="" method="post" style="margin-top:150px;">
+  {% csrf_token %}
+  <div class="fortext">
+    <b>
+    SELECT BOOKING</b>
+  </div>
+  <div class="edho">
+    {{form.select_booking}}
+  </div>
+  <div class="fortext">
+    <b>SELECT RESOURCE</b>
+  </div>
+  <div class="edho">
+    {{form.select_resource}}
+  </div>
+  <div class="fortext">
+    <b>QUANTITY</b>
+  </div>
+  <div class="edho">
+    {{form.quantity}}
+  </div>
+    <button class="button btn btn-success btn-lg"  type="submit" name="button">Submit</button>
+</form>
+</center>
+{% block style %}
+<style>
+  .edho{
+    padding-bottom:45px;
+    padding-top:5px;
+  }
+  .fortext{
+    font-family:Comic Sans MS;
+    font-size:25px;
+  }
+</style>
+  {% endblock style %}
+{% endblock body%}

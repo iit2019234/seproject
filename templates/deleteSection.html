@@ -1,0 +1,12 @@
+{%extends 'base1.html '%}
+
+{%block body%}
+<center>
+<form action="{% url 'delete_section' sec.id %}" method="post" style="margin-top:200px;">
+  {% csrf_token %}
+    <h2>Are you sure?You want to delete"{{sec}}"</h2>
+    <br>
+    <button class="button btn btn-primary btn-lg" style="margin-top:50px;" type="submit" name="button">Submit</button>
+</form>
+</center>
+{%endblock%}

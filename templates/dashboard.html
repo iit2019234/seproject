@@ -1,0 +1,34 @@
+{% extends 'base1.html' %}
+{% block body %}
+  <center><h2>MY DASHBOARD</h2></center>
+
+  <br>
+
+  <div class="row">
+    <div class= "col-md-4">
+      <hr>
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'sectionpage' %}">View Sections</a>
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'create_section'%}">Create Section</a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <hr>
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'availablelab' %}">BOOK LAB</a>
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'resourcebook' %}">BOOK RESOURCES</a>
+
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <hr>
+      <div class="card card-body">
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'labpage' %}">View BOOKED Labs</a>
+        <a class="btn btn-primary btn-sm btn-block" href="{% url 'resourcepage' %}">View BOOKED Resources</a>
+
+      </div>
+    </div>
+  </div>
+{% endblock body %}

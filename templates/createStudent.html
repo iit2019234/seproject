@@ -1,0 +1,12 @@
+{%extends 'base1.html '%}
+
+{%block body%}
+<center>
+<form action="" method="post" style="margin-top:200px;">
+  {% csrf_token %}
+    {{form}}
+    <br>
+    <button class="button btn btn-primary btn-lg" style="margin-top:50px;" type="submit" name="button">Submit</button>
+</form>
+</center>
+{%endblock%}

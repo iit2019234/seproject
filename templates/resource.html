@@ -1,0 +1,42 @@
+{% extends 'base1.html' %}
+{% block body %}
+<center>
+  <table>
+    <thead>
+      <th>LAB BOOKING</th>
+      <th>RESOURCE</th>
+      <th>QUANTITY</th>
+      <th>STATUS</th>
+      <th></th>
+    </thead>
+    {% for i in res %}
+    <tr>
+      <td>{{i.select_booking}}</td>
+      <td>{{i.select_resource}}</td>
+      <td>{{i.quantity}}</td>
+      <td>{{i.status}}</td>
+      <td><a href="{% url 'delete_resource' i.id %}"><button class="button btn btn-danger " type="button" name="button">Remove</button></a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  </center>
+{% block style %}
+<style>
+  th{
+    font-family:Comic Sans MS;
+    border-bottom:1px solid black;
+    padding:25px;
+    font-size:20px;
+    background:black;
+    color:blue;
+    margin-bottom:2px;
+  }
+  td{
+      padding:20px;
+      font-size:18px;
+      background:gray;
+      color:black;
+  }
+</style>
+  {% endblock style %}
+{% endblock body %}

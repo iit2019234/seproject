@@ -1,0 +1,44 @@
+{%extends 'base1.html'%}
+
+{% block body%}
+<center>
+  <form action="" method="post" style="margin-top:200px;">
+            {% csrf_token %}
+            <div class="fortext edho">
+             <label for="">Section: </label>
+             {{form.section_id}}
+            </div>
+            <div class="fortext edho">
+              <label for="">Lab: </label>
+              {{selected_lab.lab_id}}
+            </div>
+            <div class="fortext edho">
+              <label for="startDate">Check In : </label>
+              <input type="datetime-local" id="startDate"  name = "startDate" required>
+            </div>
+
+            <div class="fortext edho">
+              <label for="lastDate">Check Out : </label>
+              <input type="datetime-local" id=lastDate" name = "lastDate" required>
+            </div>
+            <br>
+
+            <div class="fortext edho">
+              <button class="button btn btn-success btn-lg" style="margin-top:0px;" type="submit" name="button">Submit</button>
+            </div>
+
+          </form>
+</center>
+{% block style %}
+<style>
+  .edho{
+    padding-bottom:35px;
+    padding-top:5px;
+  }
+  .fortext{
+    font-family:Comic Sans MS;
+    font-size:25px;
+  }
+</style>
+  {% endblock style %}
+{% endblock body%}

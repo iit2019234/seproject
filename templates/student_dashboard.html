@@ -1,0 +1,48 @@
+{% extends 'base1.html' %}
+{% block body %}
+<form  action="/student_dashboard" method="post">
+  {% csrf_token %}
+<div class="container">
+<center>
+<table>
+  <thead>
+    <th>SECTION ID</th>
+    <th>STUDENT NAME</th>
+    <th>STUDENT ID</th>
+    <th>STUDENT MAIL</th>
+    <th></th>
+  </thead>
+  {% for i in student_details %}
+            <tr>
+              <td>{{i.section_id}}</td>
+              <td>{{i.student_name}}</td>
+              <td>{{i.student_id}}</td>
+              <td>{{i.student_mail}}</td>
+              <td><a href="{% url 'delete_student' i.id %}"><button class="button btn btn-danger " type="button" name="button">Remove</button></a></td>
+            </tr>
+    {% endfor %}
+</table>
+
+</center>
+</div>
+</form>
+{% block style %}
+<style>
+  th{
+    font-family:Comic Sans MS;
+    border-bottom:1px solid black;
+    padding:25px;
+    font-size:20px;
+    background:black;
+    color:blue;
+    margin-bottom:2px;
+  }
+  td{
+      padding:20px;
+      font-size:18px;
+      background:gray;
+      color:black;
+  }
+</style>
+{% endblock style %}
+{% endblock body %}
