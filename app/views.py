@@ -13,6 +13,7 @@ from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
 from django.utils.html import strip_tags
 from django.urls import reverse, reverse_lazy
+from django.db.models import F
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -88,7 +89,14 @@ def create_section(request):
 
 def delete_section(request,pk):
     sec=section.objects.get(id=pk)
+    st=student.objects.filter(section_id_id=pk)
     user=request.user.email
+    send_mail=[]
+    send_mail.append(user)
+    print(st.count())
+    for i in range(st.count()):
+        print(st[i].student_mail)
+        send_mail.append(st[i].student_mail)
     if request.method == "POST":
         #print('========================',sec)
         html_content = render_to_string('deletesectionemail.html',{'sec':sec})
@@ -102,7 +110,7 @@ def delete_section(request,pk):
         #from
         EMAIL_HOST_USER,
         #to
-        [user]
+        send_mail
         )
         msg.attach_alternative(html_content, "text/html")
         msg.send()
@@ -121,7 +129,7 @@ def student_dashboard(request,pk):
     student_details=student.objects.filter(section_id__facultyid__username=request.user.username,section_id_id=pk)
     #print(sec.section_id,"===============================")
     #print(student_details,"=================================")
-    student_details=student_details.filter()
+    #student_details=student_details.filter()
     return render(request,'student_dashboard.html',{'student_details':student_details})
 
 def studentDetail(request,pk):
@@ -129,10 +137,18 @@ def studentDetail(request,pk):
     return(request,'studentDetail.html',{'Student':Student})
 
 def cancel_lab(request,pk):
-    Lab = lab.objects.get(id=pk)
+    Lab = booking.objects.get(id=pk)
+    st=student.objects.filter(section_id__facultyid__username=request.user.username,section_id=Lab.section_id)
+    print(st)
+    send_mail=[]
     user=request.user.email
+    send_mail.append(user)
+    print(st.count())
+    for i in range(st.count()):
+        print(st[i].student_mail)
+        send_mail.append(st[i].student_mail)
     if request.method == "POST":
-        html_content = render_to_string('deletelabmail.html',{'Lab':Lab})
+        html_content = render_to_string('deletelabemail.html',{'Lab':Lab})
         Lab.delete()
         text_content = strip_tags(html_content)
         msg=EmailMultiAlternatives(
@@ -143,7 +159,7 @@ def cancel_lab(request,pk):
         #from
         EMAIL_HOST_USER,
         #to
-        [user]
+        send_mail
         )
         msg.attach_alternative(html_content, "text/html")
         msg.send()
