@@ -193,7 +193,45 @@ def delete_student(request,pk):
         return HttpResponseRedirect('/student_dashboard')
     return render(request,'deleteStudent.html',{'st':st})
 def booklab(request,pk):
-    return HttpResponse("resourcebook")
+    user=request.user.email
+    print(pk)
+    selected_lab=lab.objects.get(id=pk)
+    #for i in range(selected_lab.count()):
+    #    print(selected_lab[i].id)
+    form=bookLab()
+    if request.method=="POST":
+        form=bookLab(request.POST)
+        if form.is_valid():
+            post=form.save(commit = False)
+            strt_date=request.POST['startDate']
+            l_date=request.POST['lastDate']
+            post.user=request.user
+            post.lab_id=selected_lab
+            post.startDate=strt_date
+            post.lastDate=l_date
+            post.save()
+            #print('=====================',post)
+            #data=post.cleaned_data
+            html_content = render_to_string('booklabemail.html',{'post':post})
+            text_content = strip_tags(html_content)
+            msg=EmailMultiAlternatives(
+            #subject
+            'Lab booked successfully',
+            #message
+            text_content,
+            #from
+            EMAIL_HOST_USER,
+            #to
+            [user]
+            )
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            print("Mail successfully sent")
+            form.save()
+            return HttpResponseRedirect("/labpage")
+    return  render(request,'lab_book.html',{'form':form,'selected_lab':selected_lab})
+
+
 
 def availablelab(request):
     Lab=lab.objects.all()

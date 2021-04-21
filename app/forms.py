@@ -17,4 +17,11 @@ class createSection(ModelForm):
 class book(ModelForm):
 	class Meta:
 		model=resource_booking
-		fields=['select_booking','select_resource','quantity']	
+		fields=['select_booking','select_resource','quantity']
+
+class bookLab(ModelForm):
+	#startDate = forms.DateTimeField(required=True, input_formats = ["%Y-%m-%dT%H:%M", ])
+	#lastDate = forms.DateTimeField(required=True, input_formats = ["%Y-%m-%dT%H:%M", ])
+	class Meta:
+		model = booking
+		fields = ['section_id']
