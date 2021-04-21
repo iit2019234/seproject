@@ -210,6 +210,7 @@ def booklab(request,pk):
             post.startDate=strt_date
             post.lastDate=l_date
             post.save()
+            print('user===============',user)
             #print('=====================',post)
             #data=post.cleaned_data
             html_content = render_to_string('booklabemail.html',{'post':post})
