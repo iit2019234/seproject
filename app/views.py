@@ -167,6 +167,37 @@ def cancel_lab(request,pk):
         return HttpResponseRedirect('/labpage')
     return render(request, 'cancelLab.html',{'Lab':Lab})
 
+
+def create_student(request,pk):
+    form=createStudent()
+    sec=section.objects.get(id=pk)
+
+    user_email=request.user.email
+    if request.method=='POST':
+        form=createStudent(request.POST)
+        if form.is_valid():
+            post=form.save(commit = False)
+            post.section_id=sec
+            post.save()
+            html_content = render_to_string('createstudentemail.html',{'post':post})
+            text_content = strip_tags(html_content)
+            msg=EmailMultiAlternatives(
+            #subject
+            'You are added to a section',
+            #message
+            text_content,
+            #from
+            EMAIL_HOST_USER,
+            #to
+            [user_email]
+            )
+            msg.attach_alternative(html_content, "text/html")
+            msg.send()
+            print("Mail successfully sent")
+            return HttpResponseRedirect('/sectionpage')
+    return render(request, 'createStudent.html',{'form':form})
+
+
 def delete_student(request,pk):
     st=student.objects.get(id=pk)
     st_mail=st.student_mail
@@ -190,7 +221,7 @@ def delete_student(request,pk):
         msg.attach_alternative(html_content, "text/html")
         msg.send()
         print("Mail successfully sent")
-        return HttpResponseRedirect('/student_dashboard')
+        return HttpResponseRedirect('/sectionpage')
     return render(request,'deleteStudent.html',{'st':st})
 def booklab(request,pk):
     user=request.user.email

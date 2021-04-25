@@ -21,6 +21,7 @@ urlpatterns = [
     path("delete_section/<pk>",views.delete_section,name="delete_section"),
     path("cancel_lab/<pk>",views.cancel_lab,name="cancel_lab"),
     path("booklab/<pk>",views.booklab,name="booklab"),
+    path("create_student/<pk>",views.create_student,name="create_student"),
     path("delete_student/<pk>",views.delete_student,name="delete_student"),
     path("delete_resource/<pk>",views.delete_resource,name="delete_resource"),
 ]

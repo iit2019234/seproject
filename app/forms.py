@@ -14,6 +14,11 @@ class createSection(ModelForm):
 		model = section
 		fields = ['section_id']
 
+class createStudent(ModelForm):
+	class Meta:
+		model=student
+		fields=['student_name','student_id','student_mail']
+
 class book(ModelForm):
 	class Meta:
 		model=resource_booking

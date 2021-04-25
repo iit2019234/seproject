@@ -9,6 +9,7 @@
         <th scope="col">SECTION ID</th>
         <th scope="col"></th>
         <th></th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -17,6 +18,7 @@
         <td>{{i.section_id}}</td>
         <td><a href="{% url 'delete_section' i.id  %}"><button class="button btn btn-danger " type="button" name="button">Remove</button></a></td>
         <td><a href="{% url 'student_dashboard' i.id  %}"><button class="button btn btn-primary" type="button" name="button">View Students</button></a></td>
+        <td><a href="{% url 'create_student' i.id  %}"><button class="button btn btn-primary" type="button" name="button">Add Student</button></a></td>
       </tr>
       {%endfor%}
     </tbody>
