@@ -6,8 +6,11 @@
             {% csrf_token %}
             <div class="fortext edho">
              <label for="">Section: </label>
-             {{form.section_id}}
-            </div>
+             <select name="section_id" >
+               {%for i in section_show %}
+             <option value="{{i.section_id}}">{{i.section_id}}</option>
+             {%endfor%}
+            </select>
             <div class="fortext edho">
               <label for="">Lab: </label>
               {{selected_lab.lab_id}}

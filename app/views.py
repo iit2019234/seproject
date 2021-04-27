@@ -221,30 +221,38 @@ def delete_student(request,pk):
         msg.attach_alternative(html_content, "text/html")
         msg.send()
         print("Mail successfully sent")
-        return HttpResponseRedirect('/sectionpage')
+        return HttpResponseRedirect('/student_dashboard/'+pk)
     return render(request,'deleteStudent.html',{'st':st})
 def booklab(request,pk):
-    user=request.user.email
+    user_email=request.user.email
+    username=request.user.username
     print(pk)
+    section_show=section.objects.filter(facultyid__username=request.user.username)
     selected_lab=lab.objects.get(id=pk)
     #for i in range(selected_lab.count()):
     #    print(selected_lab[i].id)
-    form=bookLab()
+    #form=bookLab()
     if request.method=="POST":
-        form=bookLab(request.POST)
-        if form.is_valid():
-            post=form.save(commit = False)
+        #form=bookLab(request.POST)
+        #if form.is_valid():
+            #post=form.save(commit = False)
+            labID=selected_lab.lab_id
             strt_date=request.POST['startDate']
             l_date=request.POST['lastDate']
-            post.user=request.user
-            post.lab_id=selected_lab
-            post.startDate=strt_date
-            post.lastDate=l_date
-            post.save()
-            print('user===============',user)
+            sectionID=request.POST['section_id']
+            act_Sec=section.objects.filter(section_id=sectionID,facultyid__username=request.user.username)
+            print(act_Sec[0])
+            book=booking(user=request.user,lab_id=selected_lab,section_id=act_Sec[0],startDate=strt_date,lastDate=l_date)
+            book.save()
+            #post.user=request.user
+            #post.lab_id=selected_lab
+            #post.startDate=strt_date
+            #post.lastDate=l_date
+            #post.save()
+            #print('user===============',user)
             #print('=====================',post)
             #data=post.cleaned_data
-            html_content = render_to_string('booklabemail.html',{'post':post})
+            html_content = render_to_string('booklabemail.html',{'username':username,'labID':labID,'strt_date':strt_date,'l_date':l_date})
             text_content = strip_tags(html_content)
             msg=EmailMultiAlternatives(
             #subject
@@ -254,14 +262,14 @@ def booklab(request,pk):
             #from
             EMAIL_HOST_USER,
             #to
-            [user]
+            [user_email]
             )
             msg.attach_alternative(html_content, "text/html")
             msg.send()
             print("Mail successfully sent")
-            form.save()
+            #form.save()
             return HttpResponseRedirect("/labpage")
-    return  render(request,'lab_book.html',{'form':form,'selected_lab':selected_lab})
+    return  render(request,'lab_book.html',{'selected_lab':selected_lab,'section_show':section_show})
 
 
 

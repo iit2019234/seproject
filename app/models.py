@@ -6,7 +6,7 @@ class section(models.Model):
     section_id=models.CharField(max_length=122,null = True)
     facultyid = models.ForeignKey(User, null=True, on_delete = models.CASCADE)
     def __str__(self):
-        return '%s %s' %(self.section_id,self.facultyid)
+        return '%s' %(self.section_id)
 
 class resource(models.Model):
     resource_name=models.CharField(max_length=122,null = True)
