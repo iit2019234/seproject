@@ -280,10 +280,17 @@ def availablelab(request):
 def resourcebook(request):
     user=request.user.email
     form = book()
+    show_lab=booking.objects.filter(user__username=request.user.username)
     if request.method=="POST":
         form=book(request.POST)
         if form.is_valid():
-            data= form.cleaned_data
+            data= form.save(commit=False)
+            lab_selected=request.POST['selected_lab']
+            for i in booking.objects.filter(user__username=request.user.username):
+                if str(i)==lab_selected:
+                    data.select_booking=i
+                    break
+            data.save()
             html_content = render_to_string('bookresourceemail.html',{'data':data})
             text_content = strip_tags(html_content)
             msg=EmailMultiAlternatives(
@@ -301,7 +308,7 @@ def resourcebook(request):
             print("Mail successfully sent")
             form.save()
             return HttpResponseRedirect("/resourcepage")
-    return  render(request,'resource_book.html',{'form':form})
+    return  render(request,'resource_book.html',{'form':form,'show_lab':show_lab})
 
 def resourcepage(request):
     res=resource_booking.objects.filter(select_booking__user__username = request.user.username)

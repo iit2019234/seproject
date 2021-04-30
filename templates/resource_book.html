@@ -9,7 +9,12 @@
     SELECT BOOKING</b>
   </div>
   <div class="edho">
-    {{form.select_booking}}
+    <select name="selected_lab">
+        {% for i in show_lab %}
+      <option value="{{i}}">{{i}}</option>
+        {% endfor %}
+    </select>
+
   </div>
   <div class="fortext">
     <b>SELECT RESOURCE</b>
